@@ -1,25 +1,49 @@
-var runSomeTests = function () {
-	var descrip = document.getElementById('descrip');
-	
-	console.log(descrip.tagName);
-	console.log(descrip.innerHTML);
-	console.log(descrip.parentNode.tagName);
-	
-	var headings = document.querySelectorAll('aside > h1');
-	
-	for (i = 0; i < headings.length; i++){
-		console.log(headings[i].innerHTML);
-	}
-	
-	var title = document.querySelector('header > h1');
-	console.log(title.tagName);
-	console.log(title.innerHTML);
-	console.log(title.parentNode.tagName);
-
-	var headers = document.querySelectorAll('h1');
-	for (i = 0; i < headers.length; i++) {
-		console.log(headers[i].innerHTML);
-	}
+var Player = function () {
+	this.items = [];
+	this.pickup = function (item) {
+		this.items.push(item);
+	};
+	this.drop = function () {};
 };
 
-window.onload = runSomeTests;
+var p = new Player();
+
+function interpret (input) {
+	var obj = {};
+	input = input.toLowerCase();
+	input = input.trim();
+	var words = input.split(" ");
+	obj.action = words.shift();
+	obj.object = words.join();
+	return obj;
+};
+
+function execute (cmd) {
+	p[cmd.action](cmd.object);
+}
+
+function report () {
+	var inventory = document.querySelector("#inventory > ul");
+	for (var i = 0; i < p.items.length; i++) {
+		var item = document.createElement("li");
+		item.innerHTML = p.items[i];
+		inventory.appendChild(item);
+	}
+}
+
+function gameStep (input) {
+	var cmd = interpret(input);
+	execute(cmd);
+	report();
+}
+
+function gameStart() {
+	var txtBox = document.querySelector("#action");
+	txtBox.addEventListener("keyup", function(e){
+		if (e.keyCode == 13) {
+			gameStep(this.value);
+		}
+	});
+}
+
+window.onload = gameStart;
