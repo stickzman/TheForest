@@ -2,11 +2,15 @@ var player = {
 	items: [],
 	pickup: function(item){
 		this.items.push(item);
+		print("You picked up " + item + ".");
 	},
 	drop: function(item){
 		var pos = this.items.indexOf(item);
 		if (pos >= 0) {
 			this.items.splice(pos, 1);
+			print("You dropped " + item + ".");
+		} else {
+			print("You don't have " + item + ".");
 		}
 	}
 }
@@ -24,6 +28,8 @@ function interpret (input) {
 function execute (cmd) {
 	if (Object.keys(player).indexOf(cmd.action) > -1) {
 		player[cmd.action](cmd.object);
+	} else {
+		print("You can't do that right now.");
 	}
 }
 
@@ -39,6 +45,11 @@ function report () {
 		item.innerHTML = player.items[i];
 		inventory.appendChild(item);
 	}
+}
+
+function print(str) {
+	var label = document.querySelector("#scene > label");
+	label.innerHTML = str;
 }
 
 function gameStep (input) {
