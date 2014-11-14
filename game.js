@@ -1,6 +1,6 @@
 var player = {
 	items: [],
-	pickup: function(item){
+	take: function(item){
 		this.items.push(item);
 		print("You picked up " + item + ".");
 	},
