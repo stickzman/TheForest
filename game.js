@@ -1,12 +1,15 @@
-var Player = function () {
-	this.items = [];
-	this.pickup = function (item) {
+var player = {
+	items: [],
+	pickup: function(item){
 		this.items.push(item);
-	};
-	this.drop = function () {};
-};
-
-var p = new Player();
+	},
+	drop: function(item){
+		var pos = this.items.indexOf(item);
+		if (pos >= 0) {
+			this.items.splice(pos, 1);
+		}
+	}
+}
 
 function interpret (input) {
 	var obj = {};
@@ -19,7 +22,7 @@ function interpret (input) {
 };
 
 function execute (cmd) {
-	p[cmd.action](cmd.object);
+	player[cmd.action](cmd.object);
 }
 
 function report () {
@@ -38,9 +41,9 @@ function gameStep (input) {
 }
 
 function gameStart() {
-	var txtBox = document.querySelector("#action");
-	txtBox.addEventListener("keyup", function(e){
-		if (e.keyCode == 13) {
+	var inputBox = document.querySelector("#action");
+	inputBox.addEventListener("keyup", function(e){
+		if (e.keyCode === 13) {
 			gameStep(this.value);
 		}
 	});
