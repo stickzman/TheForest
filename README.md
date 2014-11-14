@@ -7,6 +7,6 @@ Setting: Dense Forest/Stone Temple. Entrance to the Stone Temple will appear in 
 
 Entities: The only other entities in the game are random objects found in various rooms of the Temple related to puzzle solving, and a mysterious figure described following Player in the background, but cannot be interacted with.
 
-Actions: Look, Examine (a more detailed Look), Walk (to), Take, Use
+Actions: Look, Walk, Take, Use
 
 Endgame: Upon completing the final puzzle, a large stone door opens and the player walks into a blinding light as the dark figure sprints towards Player.  When the light dies down, Player wakes up next to the stone alter, but the entrance is closed and there is a note in place of the stone slab on the alter. The note thanks Player for helping cage "the Beast" in the temple, and apoligizes for having sent Player in instead of themselves, but they're hands were tied.  The note then tells the way back home and the game ends.
