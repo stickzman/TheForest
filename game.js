@@ -12,21 +12,28 @@ var player = {
 }
 
 function interpret (input) {
-	var obj = {};
+	var cmd = {};
 	input = input.toLowerCase();
 	input = input.trim();
 	var words = input.split(" ");
-	obj.action = words.shift();
-	obj.object = words.join();
-	return obj;
+	cmd.action = words.shift();
+	cmd.object = words.join(" ");
+	return cmd;
 };
 
 function execute (cmd) {
-	player[cmd.action](cmd.object);
+	if (Object.keys(player).indexOf(cmd.action) > -1) {
+		player[cmd.action](cmd.object);
+	}
 }
 
 function report () {
 	var inventory = document.querySelector("#inventory > ul");
+	//Clear inventory display
+	while (inventory.firstChild) {
+		inventory.removeChild(inventory.firstChild);
+	}
+	//Update inventory display with player's current items list
 	for (var i = 0; i < player.items.length; i++) {
 		var item = document.createElement("li");
 		item.innerHTML = player.items[i];
@@ -45,6 +52,7 @@ function gameStart() {
 	inputBox.addEventListener("keyup", function(e){
 		if (e.keyCode === 13) {
 			gameStep(this.value);
+			this.value = "";
 		}
 	});
 }
