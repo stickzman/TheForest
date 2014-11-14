@@ -27,9 +27,9 @@ function execute (cmd) {
 
 function report () {
 	var inventory = document.querySelector("#inventory > ul");
-	for (var i = 0; i < p.items.length; i++) {
+	for (var i = 0; i < player.items.length; i++) {
 		var item = document.createElement("li");
-		item.innerHTML = p.items[i];
+		item.innerHTML = player.items[i];
 		inventory.appendChild(item);
 	}
 }
