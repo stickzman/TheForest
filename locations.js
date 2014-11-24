@@ -4,6 +4,37 @@ function Location (name, desc) {
 	this.items = [];
 }
 
+function connect(loc1, loc2) {
+	var i1 = indexLoc(loc1);
+	var i2 = indexLoc(loc2);
+	map.connections[i1][i2] = 1;
+	map.connections[i2][i1] = 1;
+}
+
+function disconnect(loc1, loc2) {
+	var i1 = indexLoc(loc1);
+	var i2 = indexLoc(loc2);
+	map.connections[i1][i2] = 0;
+	map.connections[i2][i1] = 0;
+}
+
+function oneWay(loc1, loc2) {
+	var i1 = indexLoc(loc1);
+	var i2 = indexLoc(loc2);
+	map.connections[i1][i2] = 1;
+	map.connections[i2][i1] = 0;
+}
+
+function indexLoc(name) {
+	var result = -1;
+	for (var i = 0; i < map.locations.length; i++) {
+		if (map.locations[i].name === name) {
+			result = i;
+		}
+	}
+	return result;
+}
+
 var map = {
 	locations: [
 		new Location('Forest', 'You\'re standing in the Forest'),
@@ -12,19 +43,8 @@ var map = {
 	],
 	//Adjacency Matrix
 	connections: [
-		[1, 1, 0],
-		[0, 1, 1],
-		[1, 0, 1]
+		[0, 0, 0],
+		[0, 0, 0],
+		[0, 0, 0]
 	]
 }
-
-//Print to console only locations accessible from locForest
-function printLoc0Adj() {
-	for (var i = 0; i < map.connections[0].length; i++) {
-		if (map.connections[0][i] === 1) {
-			console.log(map.locations[i].name)
-		}
-	}
-}
-
-window.onload = printLoc0Adj;

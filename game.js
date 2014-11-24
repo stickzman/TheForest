@@ -1,6 +1,6 @@
 var player = {
 	items: [],
-	pickup: function(item){
+	get: function(item){
 		this.items.push(item);
 	},
 	drop: function(item){
