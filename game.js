@@ -1,13 +1,21 @@
 var player = {
 	items: [],
+	loc: map.locations[0],
 	take: function(item){
-		this.items.push(item);
-		print("You picked up " + item + ".");
+		var iLoc = this.loc.items.indexOf(item)
+		if (iLoc > -1) {
+			this.loc.items.splice(iLoc, 1);	
+			this.items.push(item);
+			print("You picked up " + item + ".");
+		} else {
+			print(capitalize(item) + " isn't in this room.");
+		}	
 	},
 	drop: function(item){
 		var pos = this.items.indexOf(item);
 		if (pos >= 0) {
 			this.items.splice(pos, 1);
+			this.loc.items.push(item);
 			print("You dropped " + item + ".");
 		} else {
 			print("You don't have " + item + ".");
@@ -34,6 +42,9 @@ function execute (cmd) {
 }
 
 function report () {
+	//Update the scene description
+	var descrip = document.querySelector("#descrip");
+	descrip.innerHTML = player.loc.descrip;
 	var inventory = document.querySelector("#inventory > ul");
 	//Clear inventory display
 	while (inventory.firstChild) {
@@ -42,7 +53,7 @@ function report () {
 	//Update inventory display with player's current items list
 	for (var i = 0; i < player.items.length; i++) {
 		var item = document.createElement("li");
-		item.innerHTML = player.items[i];
+		item.innerHTML = capitalize(player.items[i]);
 		inventory.appendChild(item);
 	}
 }
@@ -60,6 +71,20 @@ function gameStep (input) {
 
 function gameStart() {
 	var inputBox = document.querySelector("#action");
+	//Initialize descrip
+	var descrip = document.querySelector("#descrip");
+	descrip.innerHTML = player.loc.descrip;
+	//Intialize help list
+	var help = document.querySelector("#help > ul");
+	var keys = Object.keys(player);
+	for (i in keys) {
+		if (typeof player[keys[i]] === 'function') {
+			var li = document.createElement("li");
+			li.innerHTML = capitalize(keys[i]);
+			help.appendChild(li);
+		}
+	}
+	//Listen for Enter
 	inputBox.addEventListener("keyup", function(e){
 		if (e.keyCode === 13) {
 			gameStep(this.value);

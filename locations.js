@@ -1,6 +1,6 @@
-function Location (name, desc) {
+function Location (name, descrip) {
 	this.name = name;
-	this.desc = desc;
+	this.descrip = descrip;
 	this.items = [];
 }
 
@@ -37,7 +37,7 @@ function indexLoc(name) {
 
 var map = {
 	locations: [
-		new Location('Forest', 'You\'re standing in the Forest'),
+		new Location('Forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone alter.'),
 		new Location('Entrance', 'You find yourself in a great stone temple'),
 		new Location('Pit', 'You see a giant chasm in the middle of the room, with little room to move around it')
 	],
@@ -48,3 +48,5 @@ var map = {
 		[0, 0, 0]
 	]
 }
+
+map.locations[0].items.push("stuff");
