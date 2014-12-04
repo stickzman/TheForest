@@ -26,7 +26,7 @@ function interpret (input) {
 };
 
 function execute (cmd) {
-	if (Object.keys(player).indexOf(cmd.action) > -1) {
+	if (typeof player[cmd.action] === 'function') {
 		player[cmd.action](cmd.object);
 	} else {
 		print("You can't do that right now.");
