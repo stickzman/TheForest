@@ -1,28 +1,3 @@
-var player = {
-	items: [],
-	loc: map.locations[0],
-	take: function(item){
-		var iLoc = this.loc.items.indexOf(item)
-		if (iLoc > -1) {
-			this.loc.items.splice(iLoc, 1);	
-			this.items.push(item);
-			print("You picked up " + item + ".");
-		} else {
-			print(capitalize(item) + " isn't in this room.");
-		}	
-	},
-	drop: function(item){
-		var pos = this.items.indexOf(item);
-		if (pos >= 0) {
-			this.items.splice(pos, 1);
-			this.loc.items.push(item);
-			print("You dropped " + item + ".");
-		} else {
-			print("You don't have " + item + ".");
-		}
-	}
-}
-
 function interpret (input) {
 	var cmd = {};
 	input = input.toLowerCase();
@@ -56,11 +31,6 @@ function report () {
 		item.innerHTML = capitalize(player.items[i]);
 		inventory.appendChild(item);
 	}
-}
-
-function print(str) {
-	var label = document.querySelector("#scene > label");
-	label.innerHTML = str;
 }
 
 function gameStep (input) {

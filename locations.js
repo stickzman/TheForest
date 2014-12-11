@@ -4,6 +4,31 @@ function Location (name, descrip) {
 	this.items = [];
 }
 
+Location.prototype.has = function(item) {
+	return this.items.indexOf(item) > -1;
+}
+
+Location.prototype.add = function(item) {
+	this.items.push(item);
+}
+
+Location.prototype.remove = function(item) {
+	var i = this.items.indexOf(item)
+	if (i > -1) {
+		this.items.splice(i, 1);
+	}
+}
+
+function isConnected(from, to) {
+	var i1 = indexLoc(from);
+	var i2 = indexLoc(to);
+	if (map.connections[i1][i2] === 1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function connect(loc1, loc2) {
 	var i1 = indexLoc(loc1);
 	var i2 = indexLoc(loc2);
@@ -35,6 +60,15 @@ function indexLoc(name) {
 	return result;
 }
 
+function getLoc(name) {
+	var i = indexLoc(name);
+	if (i > -1) {
+		return map.locations[i];
+	} else {
+		throw "Location " + name + " does not exist";
+	}
+}
+
 var map = {
 	locations: [
 		new Location('Forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone alter.'),
@@ -49,4 +83,4 @@ var map = {
 	]
 }
 
-map.locations[0].items.push("stuff");
+map.locations[0].add("stuff");
