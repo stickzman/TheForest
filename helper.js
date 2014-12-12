@@ -14,3 +14,8 @@ function print(str) {
 	var label = document.querySelector("#scene > label");
 	label.innerHTML = str;
 }
+
+function updateDescrip(str) {
+	var descrip = document.querySelector("#descrip");
+	descrip.innerHTML = str;
+}

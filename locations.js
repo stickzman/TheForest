@@ -22,7 +22,7 @@ Location.prototype.remove = function(item) {
 function isConnected(from, to) {
 	var i1 = indexLoc(from);
 	var i2 = indexLoc(to);
-	if (map.connections[i1][i2] === 1) {
+	if (i1 !== -1 && i2 !== -1 && map.connections[i1][i2] === 1) {
 		return true;
 	} else {
 		return false;
@@ -71,9 +71,9 @@ function getLoc(name) {
 
 var map = {
 	locations: [
-		new Location('Forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone alter.'),
-		new Location('Entrance', 'You find yourself in a great stone temple'),
-		new Location('Pit', 'You see a giant chasm in the middle of the room, with little room to move around it')
+		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone alter.'),
+		new Location('entrance', 'You find yourself in a great stone temple'),
+		new Location('pit', 'You see a giant chasm in the middle of the room, with little room to move around it')
 	],
 	//Adjacency Matrix
 	connections: [
@@ -84,3 +84,6 @@ var map = {
 }
 
 map.locations[0].add("stuff");
+oneWay('forest', 'entrance');
+connect('entrance', 'pit');
+oneWay('pit', 'forest');

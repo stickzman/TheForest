@@ -30,7 +30,13 @@ player.drop = function(item){
 
 //TODO write player movement function.
 player.go = function(locName) {
-	console.log("Will go to " + locName);
+	if (isConnected(this.loc.name, locName)) {
+		this.loc = getLoc(locName);
+		updateDescrip(this.loc.descrip);
+		print("What will you do?");
+	} else {
+		print("You can't go there right now");
+	}
 }
 //TODO write player use function.
 player.use = function(item) {
