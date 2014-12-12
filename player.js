@@ -40,5 +40,10 @@ player.go = function(locName) {
 }
 //TODO write player use function.
 player.use = function(item) {
-	console.log("Will use " + item);
+	var pos = this.items.indexOf(item);
+	if (pos > -1) {
+		print("Will use " + item);
+	} else {
+		print("You don't have " + item + ".");
+	}
 }

@@ -18,8 +18,7 @@ function execute (cmd) {
 
 function report () {
 	//Update the scene description
-	var descrip = document.querySelector("#descrip");
-	descrip.innerHTML = player.loc.descrip;
+	updateDescrip(player.loc.descrip);
 	var inventory = document.querySelector("#inventory > ul");
 	//Clear inventory display
 	while (inventory.firstChild) {
@@ -41,10 +40,9 @@ function gameStep (input) {
 
 function gameStart() {
 	var inputBox = document.querySelector("#action");
-	//Initialize descrip
-	var descrip = document.querySelector("#descrip");
-	descrip.innerHTML = player.loc.descrip;
-	//Intialize help list
+	//Initialize description
+	updateDescrip(player.loc.descrip);
+	//Initialize help list
 	var help = document.querySelector("#help > ul");
 	var keys = Object.keys(player);
 	for (i in keys) {
