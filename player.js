@@ -2,8 +2,6 @@ var player = {
 	name: "",
 	items: [],
 	loc: map.locations[0],
-	
-	
 }
 
 player.take = function(item){
@@ -38,6 +36,7 @@ player.go = function(locName) {
 		print("You can't go there right now");
 	}
 }
+
 //TODO write player use function.
 player.use = function(item) {
 	var pos = this.items.indexOf(item);
