@@ -1,24 +1,47 @@
-function Location (name, descrip) {
+function Location (name, descrip, objects) {
 	this.name = name;
 	this.descrip = descrip;
 	this.items = [];
+	this.objects = objects;
 }
-
-Location.prototype.has = function(item) {
+//Location items
+Location.prototype.hasItem = function(item) {
 	return this.items.indexOf(item) > -1;
 }
 
-Location.prototype.add = function(item) {
+Location.prototype.addItem = function(item) {
 	this.items.push(item);
 }
 
-Location.prototype.remove = function(item) {
+Location.prototype.removeItem = function(item) {
 	var i = this.items.indexOf(item)
 	if (i > -1) {
 		this.items.splice(i, 1);
 	}
 }
+//Location objects
+Location.prototype.hasObj = function(name) {
+	return this.indexOfObj(name) > -1;
+}
 
+Location.prototype.addObj = function(obj) {
+	this.objects.push(obj);
+}
+
+Location.prototype.indexOfObj = function(name) {
+	for (var i = 0; i < this.objects.length; i++) {
+		if (this.objects[i].name === name) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+Location.prototype.getObj = function(name) {
+	return this.objects[this.indexOfObj(name)];
+}
+
+//Location related functions
 function isConnected(from, to) {
 	var i1 = indexLoc(from);
 	var i2 = indexLoc(to);
@@ -69,11 +92,12 @@ function getLoc(name) {
 	}
 }
 
+//An object to hold all the locations in the game and their Adjacency Matrix
 var map = {
 	locations: [
-		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone alter.'),
-		new Location('entrance', 'You find yourself in a great stone temple'),
-		new Location('pit', 'You see a giant chasm in the middle of the room, with little room to move around it')
+		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone alter.', ForestObjs),
+		new Location('entrance', 'You find yourself in a great stone temple', Loc2Objs),
+		new Location('pit', 'You see a giant chasm in the middle of the room, with little room to move around it', Loc3Objs)
 	],
 	//Adjacency Matrix
 	connections: [
@@ -83,7 +107,8 @@ var map = {
 	]
 }
 
-map.locations[0].add("stuff");
-oneWay('forest', 'entrance');
+//Add items, objects, and connect the locations
+map.locations[0].addItem("slab");
+
 connect('entrance', 'pit');
 oneWay('pit', 'forest');

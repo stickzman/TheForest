@@ -18,7 +18,7 @@ function execute (cmd) {
 
 function report () {
 	//Update the scene description
-	updateDescrip(player.loc.descrip);
+	//updateDescrip(player.loc.descrip);
 	var inventory = document.querySelector("#inventory > ul");
 	//Clear inventory display
 	while (inventory.firstChild) {
@@ -53,12 +53,14 @@ function gameStart() {
 		}
 	}
 	//Listen for Enter
-	inputBox.addEventListener("keyup", function(e){
-		if (e.keyCode === 13) {
-			gameStep(this.value);
-			this.value = "";
-		}
-	});
+	inputBox.addEventListener("keyup", inputListener);
+}
+
+function inputListener(e){
+	if (e.keyCode === 13) {
+		gameStep(this.value);
+		this.value = "";
+	}
 }
 
 window.onload = gameStart;
