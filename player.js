@@ -9,9 +9,9 @@ player.take = function(item){
 	if (iLoc > -1) {
 		this.loc.removeItem(item);	
 		this.items.push(item);
-		print("You picked up " + item + ".");
+		print("You picked up <b>" + item + "</b>.");
 	} else {
-		print(capitalize(item) + " isn't in this room.");
+		print("<b>" + capitalize(item) + "</b> isn't in this room.");
 	}	
 }
 
@@ -20,9 +20,9 @@ player.drop = function(item){
 	if (pos > -1) {
 		this.items.splice(pos, 1);
 		this.loc.addItem(item);
-		print("You dropped " + item + ".");
+		print("You dropped <b>" + item + "</b>.");
 	} else {
-		print("You don't have " + item + ".");
+		print("You don't have <b>" + item + "</b>.");
 	}
 }
 
@@ -36,6 +36,16 @@ player.go = function(locName) {
 	}
 }
 
+player.look = function(input) {
+	if (player.loc.hasObj(input)) {
+		print(player.loc.getObj(input).descrip);
+	} else if (player.items.indexOf(input) > -1 || player.loc.hasItem(input)) {
+		print("You see a <b>" + input + "</b>.");
+	} else {
+		print("There isn't any <b>" + input + "</b> here.");
+	}
+}
+
 //TODO write player use function.
 player.use = function(input) {
 	//Check to see if the player is trying to use an Obj
@@ -43,15 +53,14 @@ player.use = function(input) {
 		player.loc.getObj(input).use();
 	} else {
 	//If not, see if they have an item with the same name.
-		var item = input;
-		var pos = this.items.indexOf(item);
+		var pos = this.items.indexOf(input);
 		if (pos > -1) {
-			var obj = askforObj(item);
+			var obj = askforObj(input);
 			if (!isEmptyObj(obj)) {
-				obj.interactWith(item);
+				obj.interactWith(input);
 			}
 		} else {
-			print("You don't have " + item + ".");
+			print("You don't have <b>" + input + "</b>.");
 		}
 	}
 }

@@ -1,6 +1,6 @@
 
 html {
-    font-family: cursive;
+    font-family: "Times New Roman";
     text-align: center;
 }
 
@@ -30,10 +30,12 @@ aside {
 
 aside#help {
     left: 0;
+	font-size: 150%;
 }
 
 aside#inventory {
     right: 0;
+	font-size: 150%;
 }
 
 main {
@@ -53,7 +55,7 @@ output {
 
 output, input {
     font-size: 200%;
-    font-family: cursive;
+    font-family: "Times New Roman";
 }
 
 main > section {

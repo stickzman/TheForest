@@ -28,30 +28,6 @@ function isEmptyObj(obj){
 }
 
 function askforObj(item) {
-	/* print("What would you like to use " + item + " with?");
-	var inputBox = document.querySelector("#action");
-	inputBox.placeholder = "Enter an object name..."
-	inputBox.value = "";
-	inputBox.removeEventListener("keyup", inputListener);
-	inputBox.addEventListener("keyup", function objListener(e) {
-		//e.stopImmediatePropagation()
-		if (e.keyCode === 13) {
-			var obj = {};
-			var input = inputBox.value;
-			input = input.toLowerCase();
-			input = input.trim();
-			if (player.loc.hasObj(input)) {
-				obj = player.loc.getObj(input);
-			} else {
-				print(capitalize(input) + " is not in this room.");
-			}
-			inputBox.placeholder = "Enter an action here..."
-			inputBox.value = "";
-			inputBox.removeEventListener("keyup", objListener);
-			inputBox.addEventListener("keyup", inputListener);
-			return obj;
-		}
-	}); */
 	var obj = {};
 	var input = prompt("What would you like to use " + item + " with?");
 	input = input.toLowerCase();
@@ -59,7 +35,7 @@ function askforObj(item) {
 	if (player.loc.hasObj(input)) {
 		obj = player.loc.getObj(input);
 	} else {
-		print(capitalize(input) + " is not in this room.");
+		print("<b>" + capitalize(input) + "</b> is not in this room.");
 	}
 	return obj;
 }
