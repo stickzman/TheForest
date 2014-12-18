@@ -29,15 +29,21 @@ function isEmptyObj(obj){
 
 function askforObj(item) {
 	var obj = {};
-	var input = prompt("What would you like to use " + item + " with?");
+	var input = prompt("What would you like to use " + item + " on?");
 	input = input.toLowerCase();
 	input = input.trim();
 	if (player.loc.hasObj(input)) {
 		obj = player.loc.getObj(input);
+	} else if (playerHasItem(input)) {
+		print("You can't use <b>" + item + "</b> with <b>" + input + "</b>.");
 	} else {
 		print("<b>" + capitalize(input) + "</b> is not in this room.");
 	}
 	return obj;
+}
+
+function playerHasItem(item) {
+	return player.items.indexOf(item) > -1;
 }
 
 function removeItem(item) {

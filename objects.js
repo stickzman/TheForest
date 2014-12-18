@@ -15,10 +15,13 @@ Obj.prototype.useWith = function(item) {
 	print("<b>" + capitalize(item) + "</b> doesn't work on <b>" + this.name + "</b>.");
 }
 
+//CREATE ALL ROOM OBJECTS HERE:
 //Object arrays for each location, to be added in locations.js
 var ForestObjs = [
 	new Obj("alter", "The stone <b>alter</b> has a carving in the shape of an octagon on its top.")
 ];
+
+//WRITE OBJECT FUNCTIONS HERE:
 //Customized functions for objects
 ForestObjs[0].useWith = function(item) {
 	if (item === "slab") {
@@ -37,3 +40,80 @@ ForestObjs[0].useWith = function(item) {
 }
 
 var Loc2Objs = [];
+
+var nameObjs = [
+	new Obj('first', ""),
+	new Obj('second', ""),
+	new Obj('third', "")
+];
+
+var nameRoomOrder = "";
+nameObjs[0].use = function() {
+	if (nameRoomOrder.length < 3) {
+		nameRoomOrder += this.descrip.charAt(12);
+	}
+	if (nameRoomOrder.length === 3) {
+		if (player.name.length < 3) {
+			nameRoomOrder = nameRoomOrder.slice(0, nameRoomOrder.indexOf("-"));
+		}
+		if (nameRoomOrder.toLowerCase() === player.name.substr(0,3)) {
+			print("YAY! You beat the room!");
+			//Reset interactivity
+			nameObjs[0].use = function() {
+				print("The <b>" + this.name + "</b> is fixed in the 'ON' position.");
+			}
+		} else {
+			nameRoomOrder = "";
+			print("You flip the <b>first</b> switch. As the lights on all three switches die out, you realize it was the wrong combination.");
+		}
+	} else {
+		print("You flip the <b>first</b> switch. The '" + this.descrip.charAt(12) + "' on the base of the <b>first</b> switch lights up.");
+	}
+}
+
+nameObjs[1].use = function() {
+	if (nameRoomOrder.length < 3) {
+		nameRoomOrder += this.descrip.charAt(12);
+	}
+	if (nameRoomOrder.length === 3) {
+		if (player.name.length < 3) {
+			nameRoomOrder = nameRoomOrder.slice(0, nameRoomOrder.indexOf("-"));
+		}
+		if (nameRoomOrder.toLowerCase() === player.name.substr(0,3)) {
+			print("YAY! You beat the room!");
+			//Reset interactivity
+			nameObjs[1].use = function() {
+				print("The <b>" + this.name + "</b> is fixed in the 'ON' position.");
+			}
+		} else {
+			nameRoomOrder = "";
+			print("You flip the <b>second</b> switch. As the lights on all three switches die out, you realize it was the wrong combination.");
+		}
+	} else {
+		print("You flip the <b>second</b> switch. The '" + this.descrip.charAt(12) + "' on the base of the <b>second</b> switch lights up.");
+	}
+}
+
+nameObjs[2].use = function() {
+	if (nameRoomOrder.length < 3) {
+		nameRoomOrder += this.descrip.charAt(12);
+	}
+	if (nameRoomOrder.length === 3) {
+		if (player.name.length < 3) {
+			nameRoomOrder = nameRoomOrder.slice(0, nameRoomOrder.indexOf("-"));
+		}
+		if (nameRoomOrder.toLowerCase() === player.name.substr(0,3)) {
+			print("YAY! You beat the room!");
+			//Reset interactivity
+			nameObjs[2].use = function() {
+				print("The <b>" + this.name + "</b> is fixed in the 'ON' position.");
+			}
+		} else {
+			nameRoomOrder = "";
+			print("You flip the <b>third</b> switch. As the lights on all three switches die out, you realize it was the wrong combination.");
+		}
+		
+	} else {
+		print("You flip the <b>third</b> switch. The '" + this.descrip.charAt(12) + "' on the base of the <b>third</b> switch lights up.");
+	}
+}

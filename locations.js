@@ -57,6 +57,7 @@ function connect(loc1, loc2) {
 	var i2 = indexLoc(loc2);
 	map.connections[i1][i2] = 1;
 	map.connections[i2][i1] = 1;
+	displayLocations();
 }
 
 function disconnect(loc1, loc2) {
@@ -64,6 +65,7 @@ function disconnect(loc1, loc2) {
 	var i2 = indexLoc(loc2);
 	map.connections[i1][i2] = 0;
 	map.connections[i2][i1] = 0;
+	displayLocations();
 }
 
 function oneWay(loc1, loc2) {
@@ -71,6 +73,7 @@ function oneWay(loc1, loc2) {
 	var i2 = indexLoc(loc2);
 	map.connections[i1][i2] = 1;
 	map.connections[i2][i1] = 0;
+	displayLocations();
 }
 
 function indexLoc(name) {
@@ -92,11 +95,28 @@ function getLoc(name) {
 	}
 }
 
+function displayLocations() {
+	var list = document.querySelector("#map");
+	clearContent(list);
+	for (var i = 0; i < map.locations.length; i++) {
+		var li = document.createElement("li");
+		li.textContent = capitalize(map.locations[i].name);
+		if (map.locations[i] === player.loc) {
+			li.style.listStyleType = "disc";
+		} else if (!isConnected(player.loc.name, map.locations[i].name)) {
+			li.style.opacity = "0.5";
+		}
+		list.appendChild(li);
+	}
+}
+
 //An object to hold all the locations in the game and their Adjacency Matrix
 var map = {
 	locations: [
+		//CREATE LOCATIONS HERE
 		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone <b>alter</b>. At your feet lies a octagonal stone <b>slab</b>.', ForestObjs),
 		new Location('entrance', 'As the <b>door</b> slams shut behind, you find yourself in a great stone temple.', Loc2Objs),
+		new Location('TESTroom', 'In the center of the room are three heavy switches. The <b>first</b>, <b>second</b>, and <b>third</b> switch each have something sketched into them.', nameObjs)
 	],
 	//Adjacency Matrix
 	connections: [
@@ -106,5 +126,8 @@ var map = {
 	]
 }
 
+//CREATE ITEMS AND PLACE THEM IN ROOMS HERE:
 //Add items, objects, and connect the locations
 map.locations[0].addItem("slab");
+
+//EITHER USE FUNCTIONS TO CONNECT ROOMS INITIALLY OR MANUALLY EDIT ADJACENCY MATRIX

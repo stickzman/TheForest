@@ -1,7 +1,7 @@
 var player = {
 	name: "",
 	items: [],
-	loc: map.locations[0],
+	loc: map.locations[2],
 }
 
 player.take = function(item){
@@ -31,6 +31,7 @@ player.drop = function(item){
 player.walk = function(locName) {
 	if (isConnected(this.loc.name, locName)) {
 		this.loc = getLoc(locName);
+		displayLocations();
 		updateDescrip(this.loc.descrip);
 		print("What will you do?");
 	} else if (indexLoc(locName) > -1) {
@@ -43,7 +44,7 @@ player.walk = function(locName) {
 player.look = function(input) {
 	if (player.loc.hasObj(input)) {
 		print(player.loc.getObj(input).descrip);
-	} else if (player.items.indexOf(input) > -1 || player.loc.hasItem(input)) {
+	} else if (playerHasItem(input) || player.loc.hasItem(input)) {
 		print("You see a <b>" + input + "</b>.");
 	} else {
 		print("There isn't any <b>" + input + "</b> here.");
@@ -51,13 +52,13 @@ player.look = function(input) {
 }
 
 player.use = function(input) {
-	//Check to see if the player is trying to use an Obj
+	//Check to see if the player is trying to use an object
 	if (player.loc.hasObj(input)) {
 		player.loc.getObj(input).use();
 	} else {
-	//If not, see if they have an item with the same name.
-		var pos = this.items.indexOf(input);
-		if (pos > -1) {
+		//If not, see if they are trying to use an item
+		if (playerHasItem(input)) {
+			//If so, ask player what the want to use the item on
 			var obj = askforObj(input);
 			if (!isEmptyObj(obj)) {
 				obj.useWith(input);
