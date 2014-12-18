@@ -97,7 +97,6 @@ var map = {
 	locations: [
 		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone <b>alter</b>. At your feet lies a octagonal stone <b>slab</b>.', ForestObjs),
 		new Location('entrance', 'As the <b>door</b> slams shut behind, you find yourself in a great stone temple.', Loc2Objs),
-		new Location('pit', 'You see a giant chasm in the middle of the room, with little room to move around it.', Loc3Objs)
 	],
 	//Adjacency Matrix
 	connections: [
@@ -109,6 +108,3 @@ var map = {
 
 //Add items, objects, and connect the locations
 map.locations[0].addItem("slab");
-
-connect('entrance', 'pit');
-oneWay('pit', 'forest');

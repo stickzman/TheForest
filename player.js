@@ -28,15 +28,15 @@ player.drop = function(item){
 	}
 }
 
-player.go = function(locName) {
+player.walk = function(locName) {
 	if (isConnected(this.loc.name, locName)) {
 		this.loc = getLoc(locName);
 		updateDescrip(this.loc.descrip);
 		print("What will you do?");
 	} else if (indexLoc(locName) > -1) {
-		print("You can't go to <b>" + locName + "</b> right now.");
+		print("You can't go to <b>" + capitalize(locName) + "</b> right now.");
 	} else {
-		print("You can't go to <b>" + locName + "</b>.");
+		print("You can't go to <b>" + capitalize(locName) + "</b>.");
 	}
 }
 
@@ -60,7 +60,7 @@ player.use = function(input) {
 		if (pos > -1) {
 			var obj = askforObj(input);
 			if (!isEmptyObj(obj)) {
-				obj.interactWith(input);
+				obj.useWith(input);
 			}
 		} else {
 			print("You don't have <b>" + input + "</b>.");

@@ -11,7 +11,7 @@ Obj.prototype.use = function() {
 	print("You cannot use <b>" + this.name + "</b>.");
 }
 
-Obj.prototype.interactWith = function(item) {
+Obj.prototype.useWith = function(item) {
 	print("<b>" + capitalize(item) + "</b> doesn't work on <b>" + this.name + "</b>.");
 }
 
@@ -20,7 +20,7 @@ var ForestObjs = [
 	new Obj("alter", "The stone <b>alter</b> has a carving in the shape of an octagon on its top.")
 ];
 //Customized functions for objects
-ForestObjs[0].interactWith = function(item) {
+ForestObjs[0].useWith = function(item) {
 	if (item === "slab") {
 		updateDescrip("You place the stone <b>slab</b> into the carving on the top of the <b>alter</b>. With a grinding sound, the <b>slab</b> descends into the <b>alter</b>. The ground rumbles and a <b>door</b> slowly rises up in front of you.");
 		removeItem("slab");
@@ -28,7 +28,7 @@ ForestObjs[0].interactWith = function(item) {
 		var forest = getLoc('forest');
 		forest.objects.push(new Obj("door", "A cold, stone <b>door</b> towers in front of you."));
 		forest.getObj('door').use = function () {
-			player.go('entrance');
+			player.walk('entrance');
 		}
 		print("What will you do?");
 	} else {
@@ -37,4 +37,3 @@ ForestObjs[0].interactWith = function(item) {
 }
 
 var Loc2Objs = [];
-var Loc3Objs = [];

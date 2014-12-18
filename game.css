@@ -29,7 +29,7 @@ aside {
 }
 
 aside#help {
-    left: 0;
+	left: 0;
 	font-size: 150%;
 }
 
@@ -55,14 +55,11 @@ output {
 
 output, input {
     font-size: 200%;
-    font-family: "Times New Roman";
 }
 
 main > section {
     margin: 2em;
 }
-
-
 
 footer {
     top: 90%;

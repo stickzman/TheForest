@@ -12,16 +12,13 @@ function execute (cmd) {
 	if (typeof player[cmd.action] === 'function') {
 		player[cmd.action](cmd.object);
 	} else {
-		print("You can't do that right now.");
+		print("You can't do that.");
 	}
 }
 
 function report () {
 	var inventory = document.querySelector("#inventory > ul");
-	//Clear inventory display
-	while (inventory.firstChild) {
-		inventory.removeChild(inventory.firstChild);
-	}
+	clearContent(inventory);
 	//Update inventory display with player's current items list
 	for (var i = 0; i < player.items.length; i++) {
 		var item = document.createElement("li");
