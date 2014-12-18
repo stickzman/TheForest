@@ -39,3 +39,10 @@ function askforObj(item) {
 	}
 	return obj;
 }
+
+function removeItem(item) {
+	var pos = player.items.indexOf(item);
+	if (pos > -1) {
+		player.items.splice(pos, 1);
+	}
+}

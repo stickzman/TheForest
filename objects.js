@@ -22,10 +22,11 @@ var ForestObjs = [
 //Customized functions for objects
 ForestObjs[0].interactWith = function(item) {
 	if (item === "slab") {
-		updateDescrip("You place the stone <b>slab</b> into the carving on the top of the <b>alter</b>. The floor rumbles and a <b>door</b> appears in front of you.");
+		updateDescrip("You place the stone <b>slab</b> into the carving on the top of the <b>alter</b>. With a grinding sound, the <b>slab</b> descends into the <b>alter</b>. The ground rumbles and a <b>door</b> slowly rises up in front of you.");
+		removeItem("slab");
 		oneWay('forest', 'entrance');
 		var forest = getLoc('forest');
-		forest.objects.push(new Obj("door", "A cold stone <b>door</b> towers in front of you."));
+		forest.objects.push(new Obj("door", "A cold, stone <b>door</b> towers in front of you."));
 		forest.getObj('door').use = function () {
 			player.go('entrance');
 		}

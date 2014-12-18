@@ -10,9 +10,11 @@ player.take = function(item){
 		this.loc.removeItem(item);	
 		this.items.push(item);
 		print("You picked up <b>" + item + "</b>.");
+	} else if (this.loc.hasObj(item)) {
+		print("You cannot pick up <b>" + item + "</b>.");
 	} else {
 		print("<b>" + capitalize(item) + "</b> isn't in this room.");
-	}	
+	}
 }
 
 player.drop = function(item){
@@ -31,8 +33,10 @@ player.go = function(locName) {
 		this.loc = getLoc(locName);
 		updateDescrip(this.loc.descrip);
 		print("What will you do?");
+	} else if (indexLoc(locName) > -1) {
+		print("You can't go to <b>" + locName + "</b> right now.");
 	} else {
-		print("You can't go there right now");
+		print("You can't go to <b>" + locName + "</b>.");
 	}
 }
 
@@ -46,7 +50,6 @@ player.look = function(input) {
 	}
 }
 
-//TODO write player use function.
 player.use = function(input) {
 	//Check to see if the player is trying to use an Obj
 	if (player.loc.hasObj(input)) {

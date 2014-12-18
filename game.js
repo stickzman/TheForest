@@ -17,8 +17,6 @@ function execute (cmd) {
 }
 
 function report () {
-	//Update the scene description
-	//updateDescrip(player.loc.descrip);
 	var inventory = document.querySelector("#inventory > ul");
 	//Clear inventory display
 	while (inventory.firstChild) {

@@ -95,7 +95,7 @@ function getLoc(name) {
 //An object to hold all the locations in the game and their Adjacency Matrix
 var map = {
 	locations: [
-		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone <b>alter</b>. At your feet lies a octagonal stone <b>slab</b>', ForestObjs),
+		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone <b>alter</b>. At your feet lies a octagonal stone <b>slab</b>.', ForestObjs),
 		new Location('entrance', 'As the <b>door</b> slams shut behind, you find yourself in a great stone temple.', Loc2Objs),
 		new Location('pit', 'You see a giant chasm in the middle of the room, with little room to move around it.', Loc3Objs)
 	],
