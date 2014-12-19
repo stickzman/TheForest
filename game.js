@@ -67,6 +67,15 @@ function gameIntro() {
 		input = input.toLowerCase();
 		player.name = input;
 	}
+	input = prompt("In what year were you born?");
+	input = input.trim();
+	input = input.toLowerCase();
+	var re = /^\d{4}$/;
+	if (re.exec(input)) {
+		player.year = input;
+	} else {
+		player.year = 1996;
+	}
 	alert("Adventure awaits, " + capitalize(player.name) + "!");
 	//Initialize the name room objects to get around load order (they need player.name)
 	nameObjs[1].descrip = "There is a '" + capitalize(player.name.charAt(0)) + "' sketched into the <b>second</b> switch.";
@@ -81,6 +90,7 @@ function gameIntro() {
 		nameObjs[0].descrip = "There is a '" + capitalize(player.name.charAt(2)) + "' sketched into the <b>first</b> switch.";
 	}
 	nameObjs[3].descrip = "The <b>engraving</b> looks thousands of years old. It reads, \"Only you can complete this puzzle, <i>" + capitalize(player.name) + "</i>.\"";
+	dungeonObjs[1].descrip = "The note reads: \"March 14, " + player.year + ", I've managed to lock the beast in the <b>Loft</b>.  Unfortunately, the <b>Loft</b> also holds the key to the <b>Forest</b>. Nobody under the age of "+ (Math.abs(2014-player.year)) + " could have the bravery to go up there with it.";
 	gameStart();
 }
 

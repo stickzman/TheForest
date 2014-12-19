@@ -52,6 +52,19 @@ var EntranceObjs = [
 EntranceObjs[0].use = function () {
 	print("The <b>" + this.name + "</b> is locked shut.");
 }
+
+EntranceObjs[0].useWith = function (item) {
+	if (item === 'big key') {
+		updateDescrip("You turn the <b>big key</b>, and the <b>door</b> finally creaks open! You've escaped the temple, with you skin in tact. But you've left the door unlocked...with the beast inside.");
+		player.location = getLoc('forest');
+		disconnect('forest', 'entrance');
+		updateLocations();
+		print("You Win?");
+	} else {
+		print("<b>" + capitalize(item) + "</b> doesn't work on <b>" + this.name + "</b>.");
+	}
+}
+
 EntranceObjs[1].useWith = function (item) {
 	if (item === 'slab') {
 		removeItem('slab');
@@ -140,7 +153,7 @@ var stairObjs = [];
 
 //FIREPIT
 var fireObjs = [
-	new Obj('pit', 'Flames fire up from the <b>pit</b>\'s center, making the whole room unbearably hot. It appears to be heating the building, but for who is unclear.'),
+	new Obj('pit', 'Flames fire up from the <b>pit</b>\'s center, making the whole room unbearably hot. It appears to be heating the building.'),
 	new Obj('machine', 'The heavy <b>machine</b> appears to be producing the flames. Amoungst its dusty dials and monitors is an empty keyhole.')
 ];
 
@@ -148,19 +161,56 @@ fireObjs[1].useWith = function(item) {
 	if (item === 'key') {
 		var rnd = Math.random();
 		if (rnd < 0.5) {
-			updateDescrip("You turn the <b>key</b> in the <b>machine</b> and the whole thing comes humming to a stop. As you pull the <b>key</b> out, the flames in the <b>pit</b> die down the whole building begins to cool.");
+			updateDescrip("You turn the <b>key</b> in the <b>machine</b> and the whole thing comes humming to a stop. As you pull the <b>key</b> out, the flames in the <b>pit</b> die down the whole building begins to cool. The <b>Staircase</b> is behind you.");
 			getLoc("firepit").descrip = 'The <b>pit</b> in the middle of the room is cool and dark. At the other end the large <b>machine</b> sits silently. Behind you is the <b>Staircase</b>.';
 			var observatory = getLoc("observatory");
 			observatory.getObj('water').descrip = "The pool of <b>water</b> has cool to a comfortable temperature. You can now cross it and enter the <b>Dungeon</b>.";
 			observatory.descrip = "To your left, a large metal <b>gate</b> lies on the floor near the entrance to the <b>Staircase</b>. It appears the pool of <b>water</b> has cooled down significantly. On the other side of the <b>water</b>, you can see a <b>Dungeon</b>. To your right is the <b>Hallway</b>.";
+			getLoc('staircase').descrip = "The passage of the <b>Staircase</b> winds down in a clockwise pattern. At the bottom of the stairs you see the the now quiet <b>Firepit</b>. The <b>Observatory</b> is found at the top of the steps.";
 		} else {
-			updateDescrip("You turn the <b>key</b> in the <b>machine</b> and the the whole thing appears to go into overdrive! As you pull the <b>key</b> out, the flames in the <b>pit</b> grow in size! The room could quickly cook you alive!");
+			updateDescrip("You turn the <b>key</b> in the <b>machine</b> and the the whole thing appears to go into overdrive! As you pull the <b>key</b> out, the flames in the <b>pit</b> grow in size! The room could quickly cook you alive! The <b>Staircase</b> is behind you.");
 			getLoc("firepit").descrip = 'The <b>pit</b> in the middle of the room is spewing flames larger than you have ever seen. At the other end the large <b>machine</b> loudly clanks on. Behind you is the <b>Staircase</b>.';
 			var observatory = getLoc("observatory");
 			observatory.getObj('water').descrip = "The pool of <b>water</b> has evaporated. You can now enter the <b>Dungeon</b>.";
 			observatory.descrip = "To your left, a large metal <b>gate</b> lies on the floor near the entrance to the <b>Staircase</b>. The <b>Observatory</b> has a warm mist hanging over it, and the pool of <b>water</b> is no longer on the ground. Through the mist, you can see a <b>Dungeon</b>. To your right is the <b>Hallway</b>.";
 		}
+		connect('observatory', 'dungeon');
+		print("What will you do?");
+		//Reset functionality
+		fireObjs[1].useWith = function(item) {
+			if (item === 'key') {
+				print("You insert the <b>key</b> into the <b>machine</b> and try to turn it, but the <b>key</b> won't budge. The <b>machine</b> is stuck in its position.");
+			} else {
+				print("<b>" + capitalize(item) + "</b> doesn't work on <b>" + this.name + "</b>.");
+			}
+		}
 	} else {
 		print("<b>" + capitalize(item) + "</b> doesn't work on <b>" + this.name + "</b>.");
 	}
 }
+
+var dungeonObjs = [
+	new Obj('gate', 'The cell\'s <b>gate</b> is locked.'),
+	new Obj('note', ''),
+	new Obj('ladder', "The weathered <b>ladder</b> leads up to the <b>Loft</b>.")
+];
+
+dungeonObjs[0].useWith = function(item) {
+	if (item === 'key') {
+		updateDescrip("You put the <b>key</b> in the lock on the <b>gate</b> and turn. The <b>gate</b> stiffly slides open, but your <b>key</b> gets stuck in it. The <b>ladder</b> is now within reach.");
+		removeItem('key');
+		connect('dungeon', 'loft');
+		getLoc('dungeon').getObj('ladder').use = function () {
+			player.walk('loft');
+		}
+		print("What will you do?");
+	} else {
+		print("<b>" + capitalize(item) + "</b> doesn't work on <b>" + this.name + "</b>.");
+	}
+}
+
+dungeonObjs[1].use = function () {
+	player.look(this.name);
+}
+
+var loftObjs = [];

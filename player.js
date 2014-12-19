@@ -1,5 +1,6 @@
 var player = {
 	name: "",
+	year: 0,
 	items: [],
 	loc: map.locations[0],
 }
