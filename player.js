@@ -1,7 +1,7 @@
 var player = {
 	name: "",
 	items: [],
-	loc: map.locations[2],
+	loc: map.locations[0],
 }
 
 player.take = function(item){
@@ -29,23 +29,33 @@ player.drop = function(item){
 }
 
 player.walk = function(locName) {
-	if (isConnected(this.loc.name, locName)) {
-		this.loc = getLoc(locName);
-		displayLocations();
-		updateDescrip(this.loc.descrip);
-		print("What will you do?");
-	} else if (indexLoc(locName) > -1) {
-		print("You can't go to <b>" + capitalize(locName) + "</b> right now.");
+	//Special condition if player tries to 'walk door' instead of 'use door'
+	if (locName === 'door' && player.loc.hasObj('door')) {
+		player.loc.getObj('door').use();
 	} else {
-		print("You can't go to <b>" + capitalize(locName) + "</b>.");
+		if (isConnected(this.loc.name, locName)) {
+			this.loc = getLoc(locName);
+			updateLocations();
+			updateDescrip(this.loc.descrip);
+			print("What will you do?");
+		} else if (indexLoc(locName) > -1) {
+			print("You can't go to <b>" + capitalize(locName) + "</b> right now.");
+		} else {
+			print("You can't go to <b>" + capitalize(locName) + "</b>.");
+		}
 	}
 }
 
 player.look = function(input) {
+	//Is the player looking at an object?
 	if (player.loc.hasObj(input)) {
 		print(player.loc.getObj(input).descrip);
+	//Are they looking at an item?
 	} else if (playerHasItem(input) || player.loc.hasItem(input)) {
 		print("You see a <b>" + input + "</b>.");
+	//Are they looking at a nearby location?
+	} else if (isConnected(this.loc.name, input)) {
+		print("You see the <b>" + capitalize(input) + "</b>.");
 	} else {
 		print("There isn't any <b>" + input + "</b> here.");
 	}

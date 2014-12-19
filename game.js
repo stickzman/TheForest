@@ -12,7 +12,7 @@ function execute (cmd) {
 	if (typeof player[cmd.action] === 'function') {
 		player[cmd.action](cmd.object);
 	} else {
-		print("You can't do that.");
+		print("You cannot <b>" + cmd.action + "</b>.");
 	}
 }
 
@@ -41,7 +41,7 @@ function gameStart() {
 	var help = document.querySelector("#help");
 	var keys = Object.keys(player);
 	//Initialize locations list
-	displayLocations();
+	updateLocations();
 	for (i in keys) {
 		if (typeof player[keys[i]] === 'function') {
 			var li = document.createElement("li");
@@ -61,7 +61,7 @@ function gameStart() {
 function gameIntro() {
 	var input = prompt("Hello traveler, what would you like to be called?");
 	if (input === "") {
-		player.name = "Traveler";
+		player.name = "traveler";
 	} else {
 		input = input.trim();
 		input = input.toLowerCase();
@@ -80,6 +80,7 @@ function gameIntro() {
 	} else {
 		nameObjs[0].descrip = "There is a '" + capitalize(player.name.charAt(2)) + "' sketched into the <b>first</b> switch.";
 	}
+	nameObjs[3].descrip = "The <b>engraving</b> looks thousands of years old. It reads, \"Only you can complete this puzzle, <i>" + capitalize(player.name) + "</i>.\"";
 	gameStart();
 }
 

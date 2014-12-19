@@ -57,7 +57,6 @@ function connect(loc1, loc2) {
 	var i2 = indexLoc(loc2);
 	map.connections[i1][i2] = 1;
 	map.connections[i2][i1] = 1;
-	displayLocations();
 }
 
 function disconnect(loc1, loc2) {
@@ -65,7 +64,6 @@ function disconnect(loc1, loc2) {
 	var i2 = indexLoc(loc2);
 	map.connections[i1][i2] = 0;
 	map.connections[i2][i1] = 0;
-	displayLocations();
 }
 
 function oneWay(loc1, loc2) {
@@ -73,7 +71,6 @@ function oneWay(loc1, loc2) {
 	var i2 = indexLoc(loc2);
 	map.connections[i1][i2] = 1;
 	map.connections[i2][i1] = 0;
-	displayLocations();
 }
 
 function indexLoc(name) {
@@ -95,7 +92,7 @@ function getLoc(name) {
 	}
 }
 
-function displayLocations() {
+function updateLocations() {
 	var list = document.querySelector("#map");
 	clearContent(list);
 	for (var i = 0; i < map.locations.length; i++) {
@@ -114,9 +111,9 @@ function displayLocations() {
 var map = {
 	locations: [
 		//CREATE LOCATIONS HERE
-		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed. In front of you lies a stone <b>alter</b>. At your feet lies a octagonal stone <b>slab</b>.', ForestObjs),
-		new Location('entrance', 'As the <b>door</b> slams shut behind, you find yourself in a great stone temple.', Loc2Objs),
-		new Location('TESTroom', 'In the center of the room are three heavy switches. The <b>first</b>, <b>second</b>, and <b>third</b> switch each have something sketched into them.', nameObjs)
+		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed.  In front of you sits a small stone <b>altar</b>.', ForestObjs),
+		new Location('entrance', 'As the <b>door</b> slams shut behind, you find yourself in a great stone temple. In the center of the room is another stone <b>altar</b>, though the top looks different this time.  At your feet lies a small octagonal stone <b>slab</b>.', EntranceObjs),
+		new Location('observatory', 'In the center of the <b>Observatory</b> are three heavy switches. The <b>first</b>, <b>second</b>, and <b>third</b> switch each have something sketched into them. There is an <b>engraving</b> on the wall on the right.', nameObjs)
 	],
 	//Adjacency Matrix
 	connections: [
@@ -128,6 +125,6 @@ var map = {
 
 //CREATE ITEMS AND PLACE THEM IN ROOMS HERE:
 //Add items, objects, and connect the locations
-map.locations[0].addItem("slab");
+getLoc('entrance').addItem("slab");
 
 //EITHER USE FUNCTIONS TO CONNECT ROOMS INITIALLY OR MANUALLY EDIT ADJACENCY MATRIX
