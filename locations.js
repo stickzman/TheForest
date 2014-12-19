@@ -113,18 +113,24 @@ var map = {
 		//CREATE LOCATIONS HERE
 		new Location('forest', 'You awaken to find yourself lying on lush, green grass in a massive forest. You stand up and feel dazed.  In front of you sits a small stone <b>altar</b>.', ForestObjs),
 		new Location('entrance', 'As the <b>door</b> slams shut behind, you find yourself in a great stone temple. In the center of the room is another stone <b>altar</b>, though the top looks different this time.  At your feet lies a small octagonal stone <b>slab</b>.', EntranceObjs),
-		new Location('observatory', 'In the center of the <b>Observatory</b> are three heavy switches. The <b>first</b>, <b>second</b>, and <b>third</b> switch each have something sketched into them. There is an <b>engraving</b> on the wall on the right.', nameObjs)
+		new Location('observatory', 'In the center of the <b>Observatory</b> are three heavy switches. The <b>first</b>, <b>second</b>, and <b>third</b> switch each have something sketched into them. A large metal <b>gate</b> impedes your progress, but through its bars you see a <b>Staircase</b>.  There is an <b>engraving</b> on the wall to your right.', nameObjs),
+		new Location('staircase', 'The passage of the <b>Staircase</b> winds down in a clockwise pattern. On one of the steps you see a <b>key</b>. At the bottom of the stairs you see flickering lights from the flames of the <b>Firepit</b> and hear the muffled \'whirr\' of machinery.', stairObjs),
+		new Location('firepit', 'There is a gigantic <b>pit</b> in the middle of the room with flames firing out of the center. At the other end is a large <b>machine</b> clanking away.', fireObjs)
 	],
 	//Adjacency Matrix
 	connections: [
-		[0, 0, 0],
-		[0, 0, 0],
-		[0, 0, 0]
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0]
 	]
 }
 
 //CREATE ITEMS AND PLACE THEM IN ROOMS HERE:
 //Add items, objects, and connect the locations
 getLoc('entrance').addItem("slab");
+getLoc('staircase').addItem("key");
 
 //EITHER USE FUNCTIONS TO CONNECT ROOMS INITIALLY OR MANUALLY EDIT ADJACENCY MATRIX
+connect('staircase', 'firepit');
